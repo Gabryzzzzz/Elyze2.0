@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model Elyze.Models.Reparto.RepartoViewFormModel
+@{
+    ViewData["Title"] = @SharedLocalizer["Rep_Delete"];
+    Layout = "~/Views/Shared/_Page.cshtml"; 
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+<div class="area-contents-form">
+    <form asp-action="Delete">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Nome" class="control-label">@SharedLocalizer["Rep_Name"]</label>
+            <input disabled asp-for="Nome" class="form-control" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Sede</label>
+            @Html.DropDownListFor(m => m.StabilimentoId, new SelectList(ViewBag.Sedi, "Id", "Descrizione"), new { @id = "StabilimentoId", @class = "form-control", disabled = "disabled" })
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Descrizione" class="control-label">@SharedLocalizer["Rep_Description"]</label>
+            <input disabled asp-for="Descrizione" class="form-control" />
+            <span asp-validation-for="Descrizione" class="text-danger"></span>
+        </div>
+        <div class="form-footer">
+            <input type="submit" value="@SharedLocalizer["Delete"]" class="btn btn-danger btn-lg px-5 py-2 mt-2 fixed-btn-width" />
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-5 py-2 mt-2 fixed-btn-width">@SharedLocalizer["Back"]</a>
+        </div>
+    </form>
+</div>

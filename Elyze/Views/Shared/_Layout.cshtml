@@ -1,0 +1,53 @@
+﻿@using Microsoft.Extensions.Configuration
+@using Elyze.Models
+
+@inject IConfiguration _configuration;
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.4/r-2.4.1/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/prashantchaudhary/ddslick@master/jquery.ddslick.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/r-2.4.1/datatables.min.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Elyze</title>
+</head>
+<body>
+
+    @*if CustomStyle -> Default is true use site.css style else use CustomStyle -> StylePath*@
+    <link rel="stylesheet" href="~/css/site_common.css" />
+
+    @if (_configuration.GetValue<bool>("CustomStyle:Default"))
+    {
+        <link rel="stylesheet" href="~/css/site.css" />
+    }
+    else
+    {
+        string stylePath = _configuration.GetValue<string>("CustomStyle:StylePath");
+        <link rel="stylesheet" href='~/css/@stylePath' />
+    }
+
+    <div class="">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+@*    <footer class="d-flex flex-wrap justify-content-between position-sticky bottom-0 align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+            <span class="mb-3 mb-md-0 text-white">© 2023 - Elyze - Privacy</span>
+        </div>
+    </footer>*@
+</body>
+
+</html>

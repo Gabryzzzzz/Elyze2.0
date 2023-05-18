@@ -1,0 +1,112 @@
+﻿@using Elyze.Models.Gen;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using System.Linq;
+@using Elyze.Data;
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model Elyze.Models.Gen.StoriciCreateFormView
+@{
+    ViewData["Title"] = "Inserisci inserimento";
+    Layout = "~/Views/Shared/_Page.cshtml";
+    List<CampiDinamici> CampiDinamici = new List<CampiDinamici>();
+    CampiDinamici = Model.CampiDinamici.ToList();
+    ViewBag.CampiDinamici = CampiDinamici;
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+<div class="area-contents-form">
+    <form asp-action="RemoveInserimento" id="popolamentoMA">
+        <div class="divider">@SharedLocalizer["Campi_Fissi"]</div>
+        <div class="d-flex flex-column">
+            <div>
+                <input disabled asp-for="CampiDinamici" type="hidden" name="CampiDinamici" />
+                <input disabled asp-for="CampiFissi.Stato" type="hidden" name="CampiFissi.Stato" id="statoCampiFissi" />
+                <input disabled asp-for="CampiFissi.IdInserimento" type="hidden" name="CampiFissi.IdInserimento" />
+                <input disabled asp-for="CampiFissi.IdMicroArea" type="hidden" name="CampiFissi.IdMicroArea" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="d-flex flex-row gap-2 flex-wrap">
+                    <div class="form-group flex-grow-1">
+                        <label asp-for="CampiFissi.DataInizio" class="control-label">@SharedLocalizer["MA_StartValidity"]</label>
+                        <input disabled asp-for="CampiFissi.DataInizio" class="form-control" , disabled="disabled" />
+                        <span asp-validation-for="CampiFissi.DataInizio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group flex-grow-1">
+                        <label asp-for="CampiFissi.DataFine" class="control-label">@SharedLocalizer["MA_EndValidity"]</label>
+                        <input disabled asp-for="CampiFissi.DataFine" class="form-control" , disabled="disabled" />
+                        <span asp-validation-for="CampiFissi.DataFine" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="d-flex flex-row gap-2 flex-wrap mb-3">
+                    <div class="form-group w-25">
+                        <label class="control-label">@SharedLocalizer["Company"]</label>
+                        @Html.DropDownListFor(m => m.CampiFissi.SocietaId, new SelectList(ViewBag.Societa, "Id", "Descrizione"), new { @id = "Company", @class = "form-control", disabled = "disabled" })
+                        <span asp-validation-for="CampiFissi.SocietaId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group w-25">
+                        <label class="control-label">@SharedLocalizer["Rep"]</label>
+                        @Html.DropDownListFor(m => m.CampiFissi.RepartoId, new SelectList(ViewBag.Reparto, "Id", "Descrizione"), new { @id = "Rep", @class = "form-control", disabled = "disabled" })
+                        <span asp-validation-for="CampiFissi.RepartoId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="divider">@SharedLocalizer["Campi_Dinamici"]</div>
+            <div class="d-flex flex-row flex-wrap gap-2">
+                @{
+
+                    for (int i = 0; i < Model.CampiDinamici.Length; i++)
+                    {
+                        string tipo_campo = "text";
+                        string nome_tipo = "";
+                        foreach (TipologieCampiMicroArea tipologia in ViewBag.TipologieCampi)
+                        {
+                            if (tipologia.Id == Model.CampiDinamici[i].IdTipo)
+                            {
+                                tipo_campo = tipologia.Nome;
+
+                            }
+                        }
+
+                        foreach (UnitaMisura UDM in ViewBag.UDM)
+                        {
+                            if (UDM.Id == Model.CampiDinamici[i].IdUDM)
+                            {
+                                nome_tipo = UDM.Nome;
+
+                            }
+                        }
+
+                        <input disabled asp-for="CampiDinamici[i].Valore" type="hidden" name="old_CampoDinamico_@Model.CampiDinamici[i].Id" class="form-control" , disabled="disabled" />
+                        <div class="form-group">
+                            <label name="CampoDinamico_@Model.CampiDinamici[i].Id" class="control-label">@Model.CampiDinamici[i].Descrizione (@nome_tipo)</label>
+                            <input disabled asp-for="CampiDinamici[i].Valore" name="CampoDinamico_@Model.CampiDinamici[i].Id" type="@tipo_campo" class="form-control" , disabled="disabled" />
+                            <span asp-validation-for="CampiDinamici[i].Valore" class="text-danger"></span>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <input type="submit" value="@SharedLocalizer["Remove"]" class="btn btn-danger btn-lg px-5 py-2 mt-2 fixed-btn-width" />
+            <a asp-action="IndexInserimenti" asp-route-id="@Model.CampiFissi.IdMicroArea" class="btn btn-outline-secondary btn-lg px-5 py-2 mt-2 fixed-btn-width">@SharedLocalizer["Back"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+
+
+    @{
+
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
+
+
+
+}

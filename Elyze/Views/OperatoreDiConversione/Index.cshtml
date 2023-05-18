@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model IEnumerable<Elyze.Models.OperatoriDiConversione.OperatoreDiConversioneDto>
+@{
+    ViewData["Title"] = @SharedLocalizer["Conversion"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+    ViewData["PageName"] = "OperatoreDiConversione";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+<div class="area-contents-form">
+    <table id="table_operatori_di_conversione" class="table responsive nowrap w-100">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    @SharedLocalizer["Conversion_Factor"]
+                </th>
+                <th>
+                    @SharedLocalizer["UDM_Start"]
+                </th>
+                <th>
+                    @SharedLocalizer["UDM_Target"]
+                </th>
+                <th>
+                    @SharedLocalizer["Operation"]
+                </th>
+                <th>
+                    @*actions*@
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $('#table_operatori_di_conversione').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": `@ViewData["BasePath"]` + "/" + "@ViewData["PageName"]" + "/Get" + "@ViewData["PageName"]" + "DataTable",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                }, {
+                    "targets": [1],
+                    "responsivePriority": 2
+                }, {
+                    "targets": [2]
+                }, {
+                    "targets": [3]
+                }, {
+                    "targets": [-1],
+                    "orderable": false,
+                    "searchable": false,
+                    "class": "dt-right",
+                    "responsivePriority": 1
+                }],
+                "columns": [
+                    { "data": "id", "name": "Id", "autoWidth": true, "class": "dt-center" },
+                    { "data": "fattoreDiConversione", "name": `@SharedLocalizer["Conversion_Factor"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "unitaDiMisuraPartenzaDecrizione", "name": `@SharedLocalizer["UDM_Start"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "unitaDiMisuraArrivoDecrizione", "name": `@SharedLocalizer["UDM_Target"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "operazioneDescrizione", "name": `@SharedLocalizer["Operation"]`, "autoWidth": true, "class": "dt-center" },
+                    {
+                        "data": "id",
+                        "render": function (data, row) {
+                            return `
+                                            <a title = "@SharedLocalizer["Edit"]" onclick="redirect_to(${data}, 'Edit', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                                <i class="fa-solid fa-pencil" ></i>
+                                            </a>
+                                            <a title="@SharedLocalizer["Details"]" onclick="redirect_to(${data}, 'Details', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                                <i class="fa-solid fa-circle-info" ></i>
+                                            </a >
+                                            <a title="@SharedLocalizer["Delete"]" onclick="redirect_to(${data}, 'Delete', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>`;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}

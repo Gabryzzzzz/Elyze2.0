@@ -1,0 +1,135 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    ViewData["Title"] = "Tabella inserimenti";
+    Layout = "~/Views/Shared/_Page.cshtml";
+    ViewData["PageName"] = "Gen";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+
+
+<div class="area-contents-form">
+    <div class="d-flex gap-1">
+        <div class="form-group">
+            <label for="filter-societa" class="control-label">@SharedLocalizer["Company"]</label>
+            <select onchange="reload_datatable('#table_inserimenti')" class="form-select form-control" value="0" id="filter-societa">
+                <option value="0">@SharedLocalizer["Tutti"]</option>
+                @{
+                    foreach (var item in ViewBag.Societa)
+                    {
+                        <option value="@item.Id">@item.Descrizione</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DataInizioFilter" class="control-label">@SharedLocalizer["MA_StartValidity"]</label>
+            <input type="date" onchange="reload_datatable('#table_inserimenti')" id="DataInizioFilter" class="form-control" />
+            <span for="DataInizioFilter" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="DataFineFilter" class="control-label">@SharedLocalizer["MA_EndValidity"]</label>
+            <input type="date"  onchange="reload_datatable('#table_inserimenti')" id="DataFineFilter" class="form-control" />
+            <span for="DataFineFilter" class="text-danger"></span>
+        </div>
+    </div>
+    <table id="table_inserimenti" class="table compact responsive nowrap " style="width: 100%">
+        <thead>
+            <tr>
+                @{
+                    foreach (string col in ViewBag.SetupTable)
+                    {
+                        <th>
+                            @col
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let columns = [];
+            let hideColumns = [];
+
+            let setupTable = @Html.Raw(Json.Serialize(ViewBag.SetupTable));
+            for (var i in setupTable) {
+                if (setupTable[i] != "Actions") {
+                    columns.push({
+                        data: setupTable[i],
+                        name: setupTable[i],
+                        title: setupTable[i],
+                        visible: setupTable[i] != "IdInserimento",
+                        orderable: false,
+                        class: "dt-center"
+                    });
+                }
+            }
+
+            columns.push({
+                "data": "IdInserimento",
+                "name": "IdInserimento",
+                "title": "Actions",
+                "orderable": false,
+                "searchable": false,
+                "responsivePriority": 1,
+                "render": function (data, row) {
+                    return `
+                            <a title = "@SharedLocalizer["Edit"]" onclick="redirect_to(${data}, 'EditInserimento', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                <i class="fa-solid fa-pencil" ></i>
+                            </a>
+                            <a title="@SharedLocalizer["Details"]" onclick="redirect_to(${data}, 'DetailsInserimento', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                <i class="fa-solid fa-circle-info" ></i>
+                            </a >
+                            <a title="@SharedLocalizer["Delete"]" onclick="redirect_to(${data}, 'RemoveInserimento', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>`;
+                }
+            })
+
+            $('#table_inserimenti').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": `@ViewData["BasePath"]` + "/" + "@ViewData["PageName"]" + "/Get" + "Inserimenti" + "DataTable",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": function (d) {
+                        d.IdMicroArea = "@ViewData["IdMicroArea"]";
+                        d.IdSocieta = $("#filter-societa").val();
+                        d.StartDate = $("#DataInizioFilter").val();
+                        d.EndDate = $("#DataFineFilter").val();
+                    },
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        return data == 1 ?
+                            '<i class="fa-solid fa-check"></i>' :
+                            '<i class="fa-solid fa-x"></i>'
+                    }
+                }],
+                "columns": columns
+            });
+        });
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+    </script>
+}
+
+
+
+

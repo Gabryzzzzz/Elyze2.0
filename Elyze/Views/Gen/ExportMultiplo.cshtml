@@ -1,0 +1,45 @@
+﻿@using Elyze.Models.Gen;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using System.Linq;
+@using Elyze.Data;
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model Elyze.Models.Gen.ExportMultiplo
+@{
+    ViewData["Title"] = "Download Inserimenti";
+    Layout = "~/Views/Shared/_Page.cshtml";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+<div class="area-contents-form">
+    <form asp-action="ExportMultiplo">
+
+        @{
+            int index = 0;
+            foreach (var area in ViewBag.Aree)
+            {
+                <div class="d-flex flex-column gap-2 justify-content-center align-content-center">
+                    <div class="d-flex flex-nowrap justify-content-between flex-row gap-3">
+                        <h4 class="form-label">@area.Descrizione</h4>
+                        <input name="IdsAree[]" class="form-control form-check-input" value="@area.Id" type="checkbox" />
+                    </div>
+                </div>
+                index += 1;
+            }
+        }
+        <div class="form-footer">
+            <input type="submit" value="@SharedLocalizer["Export"]" class="btn btn-success btn-lg px-5 py-2 mt-2 fixed-btn-width" />
+            <a asp-action="ImportaInserimenti" class="btn btn-outline-secondary btn-lg px-5 py-2 mt-2 fixed-btn-width">@SharedLocalizer["Back"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

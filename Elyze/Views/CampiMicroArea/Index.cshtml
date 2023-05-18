@@ -1,0 +1,142 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    ViewData["Title"] = @SharedLocalizer["MA_Fields"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+    ViewData["PageName"] = "CampiMicroArea";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+<div class="area-contents-form">
+    <div class="form-group">
+        <label for="filter-area" class="control-label">@SharedLocalizer["MA_MicroArea"]</label>
+        <select onchange="reload_datatable()" class="form-select form-control w-25" id="filter-area">
+            <option value="0">@SharedLocalizer["Tutti"]</option>
+            @{
+                foreach (var item in ViewBag.MicroAree)
+                {
+                    <option value="@item.Id">@item.Descrizione</option>
+                }
+            }
+        </select>
+    </div>
+    <table id="table_campi_ma" class="table responsive nowrap w-100">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    @SharedLocalizer["MA_MicroArea"]
+                </th>
+                <th>
+                    @SharedLocalizer["MA_Type"]
+                </th>
+                <th>
+                    @SharedLocalizer["UDM"]
+                </th>
+                <th>
+                    @SharedLocalizer["Description"]
+                </th>
+                <th>
+                    @SharedLocalizer["Language"]
+                </th>
+                <th>
+                    @SharedLocalizer["Start_Date"]
+                </th>
+                <th>
+                    @SharedLocalizer["End_Date"]
+                </th>
+                <th>
+                    @*actions*@
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section Scripts {
+    <script>
+        function reload_datatable() {
+            var table = $('#table_campi_ma').DataTable();
+            table.ajax.reload();
+        }
+
+        $(document).ready(function () {
+
+            $('#table_campi_ma').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": `@ViewData["BasePath"]` + "/" + "@ViewData["PageName"]" + "/Get" + "@ViewData["PageName"]" + "DataTable",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": function (d) {
+                        d.CampiMA = $("#filter-area").val();
+                    },  
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                }, {
+                    "targets": [1],
+                    "responsivePriority": 2
+                },{
+                    "targets": [6],
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        return data.split(" ")[0]
+                    }
+                }, {
+                    "targets": [7],
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        return data.split(" ")[0]
+                    }
+                }, {
+                    "targets": [-1],
+                    "orderable": false,
+                    "searchable": false,
+                    "class": "dt-right",
+                    "responsivePriority": 1
+                }],
+                "columns": [
+                    { "data": "id", "name": "Id", "autoWidth": true, "class": "dt-center" },
+                    { "data": "microArea", "name": `@SharedLocalizer["MA_MicroArea"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "tipologia", "name": `@SharedLocalizer["MA_Type"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "udm", "name": `@SharedLocalizer["UDM"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "descrizione", "name": `@SharedLocalizer["Description"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "linguaName", "name": `@SharedLocalizer["Language"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "dataCreazione", "name": `@SharedLocalizer["Start_Date"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "dataSpegnimento", "name": `@SharedLocalizer["End_Date"]`, "autoWidth": true, "class": "dt-center" },
+                    {
+                        "data": "id",
+                        "render": function (data, row) {
+                            return `
+                                <a title = "@SharedLocalizer["Edit"]" onclick="redirect_to(${data}, 'Edit', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                    <i class="fa-solid fa-pencil" ></i>
+                                </a>
+                                <a title="@SharedLocalizer["Details"]" onclick="redirect_to(${data}, 'Details', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                    <i class="fa-solid fa-circle-info" ></i>
+                                        </a >
+                                        <a title="@SharedLocalizer["MA_AddLanguage"]" onclick="redirect_to('${data}', 'AggiungiLingua', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                            <i class="fa-solid fa-language"></i>
+                                        </a>
+                                <a title="@SharedLocalizer["Delete"]" onclick="redirect_to(${data}, 'Delete', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>`;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}

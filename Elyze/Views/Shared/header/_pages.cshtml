@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.IO;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using Elyze.Helpers;
+
+@inject IConfiguration _configuration;
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@inject IClaimGetterService ClaimGetterService
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    var sPath = "/img/loghi";
+    if (HttpContextAccessor.HttpContext != null && HttpContextAccessor.HttpContext.Request.Cookies.Keys.Contains("Company"))
+    {
+        sPath += "/" + HttpContextAccessor.HttpContext.Request.Cookies["Company"];
+    }
+}
+
+<link rel="stylesheet" href="~/css/_HeaderPage.css" />
+<header class="header_">
+
+    @{
+        string immagine = "";
+        if (ViewBag.area != null)
+            if (ViewBag.area.Descrizione != null)
+                immagine = "/img/DATAENTRY/" + ViewBag.area.IconaArea + ".png";
+    }
+
+    <!-- First section -->
+    <div id="first-section" class="d-flex-row-gap-2 welcome-section">
+        <a asp-controller="Home" asp-action="Index">
+            <img src="@sPath/logo.png" alt="Eyze" class="fixed_height_img" />
+        </a>
+        @{
+            if (ClaimGetterService.IsLogged())
+            {
+                <div>
+                    <p>@SharedLocalizer["Benvenuto"] @ClaimGetterService.GetSurnameClaim()</p>
+                </div>
+            }
+        }
+
+    </div>
+
+    <!-- Central section -->
+    <div id="central-section" class="absolute-centering-x">
+        <div class="d-flex-row-gap-2 powered-by-section">
+            <img src="/img/logo_elyze_white.png" alt="Eyze" class="fixed_height_img" />
+            
+            @if (!_configuration.GetValue<bool>("CustomStyle:Confindustria"))
+            {
+                <div>
+                    Powered By
+                </div>
+                <img class="fixed_height_img" src="/img/loghi/logo.png" alt="logo" />
+            }
+            else
+            {
+                <div>
+                    per
+                </div>
+                <img class="fixed_height_img" src="~/img/IconeLoghi/Icona-Confindustria.svg" alt="logo" />
+                <img class="fixed_height_img ml-2" src="~/img/IconeLoghi/Icona-CSI.svg" alt="logo" />
+            }
+            
+            
+        </div>
+    </div>
+    @{
+        if (ClaimGetterService.IsLogged())
+        {
+            <div id="language-burger-section" class="d-flex flex-row gap-2 align-items-center">
+                <!-- Language selector -->
+                <div id="language-section" class="lang-box">
+                    <a href="/Home/ChangeLanguage/it">IT</a>
+                    <a href="/Home/ChangeLanguage/en-US">EN</a>
+                </div>
+                <!-- Hamburger menu toggler -->
+                <div onclick="active_toggler()" class="burger-menu" id="burger">
+                    <div></div>
+                </div>
+            </div>
+        }
+    }
+
+
+    <!-- Floating menu -->
+    @{
+        if (ClaimGetterService.IsLogged())
+        {
+            <div id="menu-home" class="menu_actions d-none">
+                <div class="actions-section" id="top_section">
+                    <div><a asp-controller="Home" asp-action="Index" class="text-white">@SharedLocalizer["Dashboard"]</a></div>
+                    @{
+                        if (await ClaimGetterService.IsAdmin())
+                        {
+                            <div><a asp-controller="Home" asp-action="Gerarchie" class="text-white">@SharedLocalizer["Gerarchie"]</a></div>
+                            <div><a asp-controller="Home" asp-action="Impostazioni" class="text-white">@SharedLocalizer["Settings"]</a></div>
+                            <div><a asp-controller="Users" asp-action="Index" class="text-white">@SharedLocalizer["Users"]</a></div>
+                        }
+                    }
+                </div>
+                <div class="actions-section" id="bottom_section">
+                    @*<div><a class="text-white">@SharedLocalizer["Change_Pwd"]</a></div>*@
+                    <div><a asp-controller="Account" asp-action="Logout" class="text-white">@SharedLocalizer["Logout"]</a></div>
+                </div>
+            </div>
+        }
+    }
+
+</header>
+
+

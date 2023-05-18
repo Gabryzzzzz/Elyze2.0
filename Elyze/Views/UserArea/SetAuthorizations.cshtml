@@ -1,0 +1,80 @@
+﻿@using Elyze.Models.Home;
+@using Elyze.Data
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@model Elyze.Models.UserPermissions.UserAreaFormViewModel
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    ViewData["Title"] = @SharedLocalizer["AuthAreasTitle"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+<div class="area-contents-form">
+    <div class="form">
+        <h2>@SharedLocalizer["AuthAreasTitle"] @ViewData["User"]</h2>
+        <hr />
+
+        <form asp-action="SetAuthorizations">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input name="UserId" value="@ViewData["UserId"]" type="hidden" />
+
+            @{
+                int index = 0;
+                foreach (HomeAreaListViewModel area in ViewBag.Aree)
+                {
+                    <div class="d-flex flex-column gap-2 justify-content-center align-content-center">
+                        <div class="d-flex flex-row gap-3">
+                            <h4 class="form-label">@area.Nome</h4>
+                            <input asp-for="AreaPermissions[index].Selected" onclick='resetradio("Area_@area.IdArea", document)' id="Area_@area.IdArea" name="Area_@area.IdArea" class="form-control form-check-input" type="checkbox" />
+                        </div>
+                        <div class="d-none d-flex flex-row" id="Radio_@area.IdArea">
+                            @{
+                                foreach (UserTypesArea user_types in ViewBag.UserTypes)
+                                {
+                                    <div class="form-check form-check-inline d-flex flex-row gap-1">
+                                        <input asp-for="AreaPermissions[index].IdType" style="width: 1rem; height: 1rem; border-radius: 5px !important" class="form-check-input" type="radio" name="UserType_@area.IdArea" id="inlineRadio1" value="@user_types.Id">
+                                        <label class="form-check-label" for="inlineRadio1">@user_types.Name</label>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="divider"> - </div>
+                    index += 1;
+                }
+            }
+            <div class="form-footer">
+                <input type="submit" value="@SharedLocalizer["Save"]" class="btn btn-success btn-lg px-5 py-2 mt-2 fixed-btn-width" />
+                <a asp-controller="Users" asp-action="Configurations" asp-route-id="@ViewData["UserId"]" class="btn btn-outline-secondary btn-lg px-5 py-2 mt-2 fixed-btn-width">@SharedLocalizer["Back"]</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            let areas = @Html.Raw(Json.Serialize(Model));
+            console.log("areas", areas)
+            areas.areaPermissions.forEach(area => {
+                console.log(area)
+                let element = $(`div[id*=${area.idArea}]`);
+                console.log("element", element)
+
+                if (area.selected) {
+                    //$(`#Area_${area.name}-${area.idArea}`).prop("checked", true);
+                    $(`div[id*=${area.idArea}]`).removeClass("d-none");
+                }
+            });
+        });
+    </script>
+}

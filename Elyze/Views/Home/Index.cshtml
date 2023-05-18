@@ -1,0 +1,87 @@
+﻿@using Elyze.Models.Home;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using Elyze.Helpers;
+@inject IClaimGetterService ClaimGetterService
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@*@model IEnumerable<HomeAreaListViewModel>*@
+@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Page.cshtml";
+
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+
+@if (ViewData["Redirect"] != null)
+{
+    @await Html.PartialAsync("~/Views/Shared/Modals/_infoModal.cshtml")
+}
+
+<div class="d-flex flex-column align-items-center home-page">
+    @await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+    <div class="full-screen-blue home-layout">
+        <div class="full-screen-blue menu-grid">
+
+            @{
+                foreach (HomeAreaListViewModel item in Model.HomeAreaListViewModels)
+                {
+                    <a asp-controller="MicroArea" asp-action="main" asp-route-id="@item.IdArea" class="p-3 menu-grid-background-unset">
+                        <img src="~/img/IconeArea/@item.LocalPath" />
+                        <div class="title-text-style text-white">@item.Nome</div>
+                    </a>
+                }
+            }
+        </div>
+        <div class="divider">@SharedLocalizer["Funzionalita"]</div>
+        <div class="full-screen-blue menu-grid">
+
+            
+            <a asp-controller="Home" asp-action="PowerBi" class="functionalities">
+                <img src="/img/IconeSVG/Icona-PBI.svg" />
+                <div class="title-text-style text-white">Power BI</div>
+            </a>
+            <a asp-controller="Gen" asp-action="ImportaInserimenti" class="functionalities">
+                <img src="/img/IconeSVG/Icon-Import-Dati.svg" />
+                <div class="title-text-style text-white">@SharedLocalizer["Import"]</div>
+            </a>
+            @if (Model.Features.Repository)
+            {
+                <a asp-controller="Repository" asp-action="Index" class="functionalities">
+                    <img src="/img/elyze-upload-documenti.png" alt="Upload Document" />
+                    <div class="title-text-style text-white"> @SharedLocalizer["UploadDocument"]</div>
+                </a>
+            }
+            else
+            {
+                <a class="p-3  d-flex functionalities">
+                    <img src="/img/elyze-upload-documenti.png" alt="Upload Document" />
+                    <div style="opacity: 0.5;" class="title-text-style text-white"> @SharedLocalizer["UploadDocument"]</div>
+                </a>
+            }
+            @{
+                if (await ClaimGetterService.IsAdmin())
+                {
+                    <a asp-controller="Area" asp-action="Create" class="functionalities">
+                        <img src="/img/IconeSVG/Icon-Aggiungi-Area.svg" />
+                        <div class="title-text-style text-white">@SharedLocalizer["Add_Area"]</div>
+                    </a>
+                }
+            }
+            <a asp-controller="Gen" asp-action="ExportMultiplo" class="functionalities">
+                <img src="/img/IconeSVG/Icon-Import-Dati.svg" />
+                <div class="title-text-style text-white">@SharedLocalizer["Export_Multiplo"]</div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<img class="vanish logo-confindustria" src="~/img/loghi/Logo-Confindustria.svg" />
+
+
+
+

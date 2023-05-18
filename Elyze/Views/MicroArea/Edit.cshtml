@@ -1,0 +1,74 @@
+﻿@using Elyze.Models.MicroArea;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@model MicroAreaFormViewModel
+
+@{
+    ViewData["Title"] = "Create MicroArea";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+<div class="area-contents-form">
+    <form asp-action="Edit" id="form-area">
+        @*<input type="hidden" name="IdArea" value="@Model.IdArea" />*@
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="IdMicroArea" type="hidden" name="IdMicroArea" />
+
+        <div id="area-first-top-part">
+            <div class="form-group">
+                <label class="control-label">@SharedLocalizer["Area"]</label>
+                @Html.DropDownListFor(m => m.IdArea, new SelectList(ViewBag.Aree, "Id", "Descrizione"), new { @id = "Aree", @class = "form-control" })
+
+                <span asp-validation-for="IdArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descrizione" class="control-label">@SharedLocalizer["Area_Description"]</label>
+                <input  asp-for="Descrizione" class="form-control" />
+                <span asp-validation-for="Descrizione" class="text-danger"></span>
+            </div>
+            <div class="form-group text-nowrap status-center" id="status-center">
+                <label asp-for="Stato" class="control-label">@SharedLocalizer["Status"]</label>
+                <input  asp-for="Stato" type="checkbox" class="form-check-input" />
+                <span asp-validation-for="Stato" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="ma-gri-part">
+            <div class="form-group">
+                <label class="control-label">@SharedLocalizer["Gri_Id"]</label>
+                @Html.DropDownListFor(m => m.IdGri, new SelectList(ViewBag.Gri, "Id", "Descrizione"), new { @id = "Gri", @class = "form-control" })
+
+                <span asp-validation-for="IdGri" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="area-date-part">
+            <div class="form-group text-nowrap">
+                <label asp-="DataCreazione" class="control-label">@SharedLocalizer["Area_CreationDate"]</label>
+                <input asp-for="DataCreazione" type="date" class="form-control" name="DataCreazione" />
+                <span asp-validation-for="DataCreazione" class="text-danger"></span>
+            </div>
+            <div class="form-group text-nowrap">
+                <label asp-for="DataSpegnimento" class="control-label">@SharedLocalizer["Area_ValidityDate"]</label>
+                <input  asp-for="DataSpegnimento" type="date" id="DataSpegnimento" name="DataSpegnimento" class="form-control" />
+                <span asp-validation-for="DataSpegnimento" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-footer">
+            <input type="submit" value="@SharedLocalizer["Save"]" class="btn btn-success btn-lg px-5 py-2 mt-2 fixed-btn-width" />
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-5 py-2 mt-2 fixed-btn-width">@SharedLocalizer["Back"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

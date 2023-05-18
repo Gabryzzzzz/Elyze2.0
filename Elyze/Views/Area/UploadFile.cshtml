@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model Elyze.Data.Repository
+@{ 
+    ViewData["Title"] = "Upload File";
+    Layout = "~/Views/Shared/_Page.cshtml";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+
+<div class="area-contents-form">
+    <div class="form">
+        <h1>@SharedLocalizer["Upload File"]</h1>
+       
+
+        <form asp-action="UploadFile" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Titolo" class="control-label">@SharedLocalizer["Title"]</label>
+                <input asp-for="Titolo" class="form-control" required/>
+                <span asp-validation-for="Titolo" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Descrizione" class="control-label">@SharedLocalizer["Description"]</label>
+                <input asp-for="Descrizione" class="form-control" required/>
+                <span asp-validation-for="Descrizione" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" style="">@SharedLocalizer["Area"]</label>
+                <select class="form-control" id="select-area" name="AreaId">
+                    @foreach (var area in ViewBag.Aree)
+                    {
+                        <option value="@area.IdArea">@area.Descrizione</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" style="">@SharedLocalizer["File"]</label>
+                <input name="files" type="file">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@SharedLocalizer["Import"]" class="btn btn-green" />
+            </div>
+        </form>
+
+        @if(String.IsNullOrEmpty(ViewBag.Message))
+        {
+        <p>@ViewBag.Message</p> 
+        }
+    </div>
+</div>

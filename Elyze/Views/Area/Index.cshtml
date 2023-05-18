@@ -1,0 +1,139 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    ViewData["Title"] = @SharedLocalizer["Area_List"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+    ViewData["PageName"] = "Area";
+
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+@if (ViewData["Redirect"] != null)
+{
+    @await Html.PartialAsync("~/Views/Shared/Modals/_infoModal.cshtml")
+}
+<div class="area-contents-form w-100">
+    <div class="form-group">
+        <label for="filter-area" class="control-label">@SharedLocalizer["Language"]</label>
+        <select onchange="reload_datatable()" class="form-select form-control w-25" value="@ViewData["Lingua"]" id="filter-area-lingua">
+            <option value="0">@SharedLocalizer["Tutti"]</option>
+            @{
+                foreach (var item in ViewBag.Lingue)
+                {
+                    <option value="@item.Id">@item.Descrizione</option>
+                }
+            }
+        </select>
+    </div>
+    <table class="table responsive nowrap w-100" id="table_aree">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    @SharedLocalizer["Astatus"]
+                </th>
+                <th>
+                    @SharedLocalizer["Area_Description"]
+                </th>
+                <th>
+                    @SharedLocalizer["Language"]
+                </th>
+                <th>
+                    @SharedLocalizer["Area_CreationDate"]
+                </th>
+                <th>
+                    @SharedLocalizer["Area_ValidityDate"]
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+
+            $('#table_aree').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": `@ViewData["BasePath"]` + "/" + "@ViewData["PageName"]" + "/Get" + "@ViewData["PageName"]" + "DataTable",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": function (d) {
+                        d.AreaLinguaFilter = $("#filter-area-lingua").val();
+                    },
+                },
+                "drawCallback": function (settings) {
+                    // Here the response
+                    var response = settings.json;
+                    console.log(response);
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                }, {
+                    "targets": [2],
+                    "responsivePriority": 2
+                }, {
+                    "targets": [1],
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        return data ?
+                            '<i class="fa-solid fa-check"></i>' :
+                            '<i class="fa-solid fa-x"></i>'
+                    }
+                }, {
+                    "targets": [3]
+                }, {
+                    "targets": [4]
+                }, {
+                    "targets": [-1],
+                    "orderable": false,
+                    "searchable": false,
+                    "class": "dt-right",
+                    "responsivePriority": 1
+                }],
+                "columns": [
+                    { "data": "id", "name": "Id", "autoWidth": true, "class": "dt-center" },
+                    { "data": "stato", "name": `@SharedLocalizer["Astatus"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "descrizione", "name": `@SharedLocalizer["Area_Description"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "lingua", "name": `@SharedLocalizer["Language"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "dataCreazione", "name": `@SharedLocalizer["Area_CreationDate"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "dataSpegnimento", "name": `@SharedLocalizer["Area_ValidityDate"]`, "autoWidth": true, "class": "dt-center" },
+                    {
+                        "data": "id",
+                        "render": function (data, row) {
+                            return `
+                                                <a title="@SharedLocalizer["Edit"]" onclick="redirect_to('${data}', 'Edit', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                                    <i class="fa-solid fa-pencil" ></i>
+                                                </a>
+                                                <a title="@SharedLocalizer["Details"]" onclick="redirect_to('${data}', 'Details', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                                    <i class="fa-solid fa-circle-info" ></i>
+                                                </a >
+                                                <a title="@SharedLocalizer["MA_AddLanguage"]" onclick="redirect_to('${data}', 'AggiungiLingua', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                                    <i class="fa-solid fa-language"></i>
+                                                </a>
+                                                <a title="@SharedLocalizer["Delete"]" onclick="redirect_to('${data}', 'Delete', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>`;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}

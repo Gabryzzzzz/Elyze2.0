@@ -1,0 +1,179 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    ViewData["Title"] = @SharedLocalizer["Area_List"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+    ViewData["PageName"] = "MicroArea";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+@if (ViewData["Redirect"] != null)
+{
+    @await Html.PartialAsync("~/Views/Shared/Modals/_infoModal.cshtml")
+}
+
+<div class="area-contents-form w-100">
+    <div class="form-group">
+        <label for="filter-area" class="control-label">@SharedLocalizer["Area"]</label>
+        <select onchange="reload_datatable()" class="form-select form-control w-25" id="filter-area">
+            <option value="0">@SharedLocalizer["Tutti"]</option>
+            @{
+                foreach (var item in ViewBag.Aree)
+                {
+                    <option value="@item.Id">@item.Descrizione</option>
+                }
+            }
+        </select>
+    </div>
+    <table class="table responsive nowrap w-100" id="table_micro_aree">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    @SharedLocalizer["Status"]
+                </th>
+                <th>
+                    @SharedLocalizer["Description"]
+                </th>
+                <th>
+                    @SharedLocalizer["Area_CreationDate"]
+                </th>
+                <th>
+                    @SharedLocalizer["Area_ValidityDate"]
+                </th>
+                <th>
+                    AreaId
+                </th>
+                <th>
+                    @SharedLocalizer["Area"]
+                </th>
+                <th>
+                    GriId
+                </th>
+                <th>
+                    @SharedLocalizer["Gri_Id"]
+                </th>
+
+                <th>
+                    LinguaId
+                </th>
+                <th>
+                    @SharedLocalizer["Language"]
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        function reload_datatable() {
+            var table = $('#table_micro_aree').DataTable();
+            table.ajax.reload();
+        }
+
+        $(document).ready(function () {
+
+            $('#table_micro_aree').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": `@ViewData["BasePath"]` + "/" + "@ViewData["PageName"]" + "/Get" + "@ViewData["PageName"]" + "DataTable",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": function (d) {
+                        d.AreaFilter = $("#filter-area").val();
+                    },
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "searchable": false,
+                    "visible": false
+                }, {
+                    "targets": [1],
+                    "responsivePriority": 2,
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        return data ?
+                            '<i class="fa-solid fa-check"></i>' :
+                            '<i class="fa-solid fa-x"></i>'
+                    }
+                }, {
+                    "targets": [2]
+                }, {
+                    "targets": [3],
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        return data.split(" ")[0]
+                    }
+                }, {
+                    "targets": [4],
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        return data.split(" ")[0]
+                    }
+                }, {
+                    "targets": [5],
+                    "visible": false
+                }, {
+                    "targets": [7],
+                    "visible": false
+                }, {
+                    "targets": [9],
+                    "visible": false
+                }, {
+                    "targets": [-1],
+                    "orderable": false,
+                    "searchable": false,
+                    "class": "dt-right",
+                    "responsivePriority": 1
+                }],
+                "columns": [
+                    { "data": "id", "name": "Id", "autoWidth": true, "class": "dt-center" },
+                    { "data": "stato", "name": `@SharedLocalizer["Status"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "descrizione", "name": `@SharedLocalizer["Description"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "dataCreazione", "name": `@SharedLocalizer["Area_CreationDate"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "dataSpegnimento", "name": `@SharedLocalizer["Area_ValidityDate"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "areaId", "name": `AreaId`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "areaName", "name": `@SharedLocalizer["Area"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "griId", "name": `GriId`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "griName", "name": `@SharedLocalizer["Gri_Id"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "linguaId", "name": `LinguaId`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "linguaName", "name": `@SharedLocalizer["Language"]`, "autoWidth": true, "class": "dt-center" },
+                    {
+                        "data": "id",
+                        "render": function (data, row) {
+                            return `
+                                <a title="@SharedLocalizer["Edit"]" onclick="redirect_to('${data}', 'Edit', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                    <i class="fa-solid fa-pencil" ></i>
+                                </a>
+                                <a title="@SharedLocalizer["Details"]" onclick="redirect_to('${data}', 'Details', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                    <i class="fa-solid fa-circle-info" ></i>
+                                </a >
+                                <a title="@SharedLocalizer["MA_AddLanguage"]" onclick="redirect_to('${data}', 'AggiungiLingua', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                    <i class="fa-solid fa-language"></i>
+                                </a>
+                                <a title="@SharedLocalizer["Delete"]" onclick="redirect_to('${data}', 'Delete', '@ViewData["PageName"]', '@ViewData["BasePath"]')">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>`;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}
+

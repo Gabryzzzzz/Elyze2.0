@@ -1,0 +1,810 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Active" xml:space="preserve">
+    <value>Attivo</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Aggiungi</value>
+  </data>
+  <data name="Add_Area" xml:space="preserve">
+    <value>Aggiungi Area</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="Area_Create" xml:space="preserve">
+    <value>Crea Area</value>
+  </data>
+  <data name="Area_CreationDate" xml:space="preserve">
+    <value>Data Creazione</value>
+  </data>
+  <data name="Area_Delete" xml:space="preserve">
+    <value>Elimina Area</value>
+  </data>
+  <data name="Area_Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="Area_id" xml:space="preserve">
+    <value>Id Area</value>
+  </data>
+  <data name="Area_List" xml:space="preserve">
+    <value>Lista Aree</value>
+  </data>
+  <data name="Area_Modifiy" xml:space="preserve">
+    <value>Modifica Area</value>
+  </data>
+  <data name="Area_ValidityDate" xml:space="preserve">
+    <value>Data Spegnimento</value>
+  </data>
+  <data name="Astatus" xml:space="preserve">
+    <value>Attiva</value>
+  </data>
+  <data name="AuthAreasTitle" xml:space="preserve">
+    <value>Imposta le autorizzazioni per aree per l'utente</value>
+  </data>
+  <data name="AuthCompaniesTitle" xml:space="preserve">
+    <value>Imposta le autorizzazioni per società per l'utente</value>
+  </data>
+  <data name="AuthGruppiTitle" xml:space="preserve">
+    <value>Imposta le autorizzazioni per gruppi per l'utente</value>
+  </data>
+  <data name="AuthRepartiTitle" xml:space="preserve">
+    <value>Imposta le autorizzazioni per reparti per l'utente</value>
+  </data>
+  <data name="AuthSediTitle" xml:space="preserve">
+    <value>Imposta le autorizzazioni per sedi per l'utente</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Change_Pwd" xml:space="preserve">
+    <value>Cambia Password</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Società</value>
+  </data>
+  <data name="Company_Add" xml:space="preserve">
+    <value>Aggiungi Società</value>
+  </data>
+  <data name="Company_Delete" xml:space="preserve">
+    <value>Elimina Società</value>
+  </data>
+  <data name="Company_Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="Company_Details" xml:space="preserve">
+    <value>Dettagli Società</value>
+  </data>
+  <data name="Company_Modify" xml:space="preserve">
+    <value>Modifica Società</value>
+  </data>
+  <data name="Config_campi" xml:space="preserve">
+    <value>Config Campi</value>
+  </data>
+  <data name="Confirmation_Delete_Message" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare la riga?</value>
+  </data>
+  <data name="ControlPanel_Conversioni" xml:space="preserve">
+    <value>Conversioni</value>
+  </data>
+  <data name="Control_Panel" xml:space="preserve">
+    <value>Pannello di Controllo</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Conversione</value>
+  </data>
+  <data name="Conversions_Create" xml:space="preserve">
+    <value>Crea Conversione</value>
+  </data>
+  <data name="Conversion_Edit" xml:space="preserve">
+    <value>Modifica Conversione</value>
+  </data>
+  <data name="Conversion_Delete" xml:space="preserve">
+    <value>Elimina Conversione</value>
+  </data>
+  <data name="Conversion_Details" xml:space="preserve">
+    <value>Dettaglio Conversione</value>
+  </data>
+  <data name="Conversion_Factor" xml:space="preserve">
+    <value>Fattore Di Conversione</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Nazione</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Aggiungi</value>
+  </data>
+  <data name="CtrlPnl_Area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="CtrlPnl_Company" xml:space="preserve">
+    <value>Societa</value>
+  </data>
+  <data name="CtrlPnl_ConfigUsers" xml:space="preserve">
+    <value>Configurazione utenti</value>
+  </data>
+  <data name="CtrlPnl_Currency" xml:space="preserve">
+    <value>Valute</value>
+  </data>
+  <data name="CtrlPnl_Fields" xml:space="preserve">
+    <value>Campi</value>
+  </data>
+  <data name="CtrlPnl_Group" xml:space="preserve">
+    <value>Gruppo</value>
+  </data>
+  <data name="CtrlPnl_Hierarchy" xml:space="preserve">
+    <value>Configurazione gerarchie</value>
+  </data>
+  <data name="CtrlPnl_Import" xml:space="preserve">
+    <value>Importa</value>
+  </data>
+  <data name="CtrlPnl_Microarea" xml:space="preserve">
+    <value>Microarea</value>
+  </data>
+  <data name="CtrlPnl_Office" xml:space="preserve">
+    <value>Sede</value>
+  </data>
+  <data name="CtrlPnl_Repository" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="CtrlPnl_Section" xml:space="preserve">
+    <value>Reparti</value>
+  </data>
+  <data name="CtrlPnl_Sustenibility" xml:space="preserve">
+    <value>Configurazione sostenibilità</value>
+  </data>
+  <data name="CtrlPnl_UDM" xml:space="preserve">
+    <value>UDM</value>
+  </data>
+  <data name="CtrlPnl_Users" xml:space="preserve">
+    <value>Utenti</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valute</value>
+  </data>
+  <data name="Currency_Add" xml:space="preserve">
+    <value>Aggiungi valuta</value>
+  </data>
+  <data name="Currency_name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Currency_symbol" xml:space="preserve">
+    <value>Simbolo</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Dash_Link" xml:space="preserve">
+    <value>Sustainable Development Goals</value>
+  </data>
+  <data name="Dash_Title" xml:space="preserve">
+    <value>Scegli l'area in cui inserire i dati</value>
+  </data>
+  <data name="Date_End_Error" xml:space="preserve">
+    <value>Inserire una data di fine maggiore della data di inizio</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Delete_Confirm" xml:space="preserve">
+    <value>Sei sicuro di voler eliminare questo elemento?</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Dettagli</value>
+  </data>
+  <data name="DropDownListSelect" xml:space="preserve">
+    <value>--Seleziona--</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="End_Date" xml:space="preserve">
+    <value>Data Fine</value>
+  </data>
+  <data name="Gen_Name" xml:space="preserve">
+    <value>Nome Campo</value>
+  </data>
+  <data name="Gen_Type" xml:space="preserve">
+    <value>Tipo Campo</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Gruppo</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Gruppi</value>
+  </data>
+  <data name="Group_AddGroup" xml:space="preserve">
+    <value>Aggiungi Gruppo</value>
+  </data>
+  <data name="Group_Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="Group_Id" xml:space="preserve">
+    <value>Id Gruppo</value>
+  </data>
+  <data name="Group_Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Cronologia</value>
+  </data>
+  <data name="Icons_Area" xml:space="preserve">
+    <value>Icona Area</value>
+  </data>
+  <data name="Icons_SDG" xml:space="preserve">
+    <value>Icona SDG</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importa Dati</value>
+  </data>
+  <data name="IsoCountry" xml:space="preserve">
+    <value>Codice ISO Nazione</value>
+  </data>
+  <data name="Langue" xml:space="preserve">
+    <value>Lingua</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Logo_Alert" xml:space="preserve">
+    <value>Inserisci un'immagine in formato PNG</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="MA_Add" xml:space="preserve">
+    <value>Aggiungi Microarea</value>
+  </data>
+  <data name="MA_AddLanguage" xml:space="preserve">
+    <value>Aggiungi Lingua</value>
+  </data>
+  <data name="MA_Choice" xml:space="preserve">
+    <value>Scegli la microarea in cui inserire i dati</value>
+  </data>
+  <data name="MA_CreationDate" xml:space="preserve">
+    <value>Data Creazione</value>
+  </data>
+  <data name="MA_Delete" xml:space="preserve">
+    <value>Elimina Campi MA</value>
+  </data>
+  <data name="MA_Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="MA_EndValidity" xml:space="preserve">
+    <value>Data Fine</value>
+  </data>
+  <data name="MA_FieldId" xml:space="preserve">
+    <value>Id Campo MA</value>
+  </data>
+  <data name="MA_Fields" xml:space="preserve">
+    <value>Campi</value>
+  </data>
+  <data name="MA_Hisory" xml:space="preserve">
+    <value>Dati Storici</value>
+  </data>
+  <data name="MA_IdGri" xml:space="preserve">
+    <value>Id Gri</value>
+  </data>
+  <data name="MA_InserId" xml:space="preserve">
+    <value>Id Inserimento</value>
+  </data>
+  <data name="MA_List" xml:space="preserve">
+    <value>Lista Campi MA</value>
+  </data>
+  <data name="MA_MicroArea" xml:space="preserve">
+    <value>Microarea</value>
+  </data>
+  <data name="MA_MicroAreaId" xml:space="preserve">
+    <value>Id Microarea</value>
+  </data>
+  <data name="MA_MicroAreas" xml:space="preserve">
+    <value>Microaree</value>
+  </data>
+  <data name="MA_Modify" xml:space="preserve">
+    <value>Modifica Microarea</value>
+  </data>
+  <data name="MA_Populate" xml:space="preserve">
+    <value>Popolamento MA</value>
+  </data>
+  <data name="MA_StartValidity" xml:space="preserve">
+    <value>Data Inizio</value>
+  </data>
+  <data name="MA_Type" xml:space="preserve">
+    <value>Tipologia</value>
+  </data>
+  <data name="MA_UM" xml:space="preserve">
+    <value>Unità di Misura</value>
+  </data>
+  <data name="MA_Validate" xml:space="preserve">
+    <value>Valida</value>
+  </data>
+  <data name="MA_ValidationState" xml:space="preserve">
+    <value>Stato Validazione</value>
+  </data>
+  <data name="MA_ValidityDate" xml:space="preserve">
+    <value>Data Spegnimento</value>
+  </data>
+  <data name="MA__Plant" xml:space="preserve">
+    <value>Sede</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="NewField" xml:space="preserve">
+    <value>Nuovo Campo</value>
+  </data>
+  <data name="NotValidated" xml:space="preserve">
+    <value>Non Validata</value>
+  </data>
+  <data name="NoValidated" xml:space="preserve">
+    <value>Da Validare</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Operazione</value>
+  </data>
+  <data name="PageAuthTitle" xml:space="preserve">
+    <value>Impostazione autorizzazioni</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Plant" xml:space="preserve">
+    <value>Sede</value>
+  </data>
+  <data name="Plant_id" xml:space="preserve">
+    <value>Id Sede</value>
+  </data>
+  <data name="Rep" xml:space="preserve">
+    <value>Reparto</value>
+  </data>
+  <data name="Reps" xml:space="preserve">
+    <value>Reparti</value>
+  </data>
+  <data name="Rep_Add" xml:space="preserve">
+    <value>Aggiungi Reparto</value>
+  </data>
+  <data name="Rep_Create" xml:space="preserve">
+    <value>Crea Reparto</value>
+  </data>
+  <data name="Rep_Delete" xml:space="preserve">
+    <value>Elimina Reparto</value>
+  </data>
+  <data name="Rep_Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="Rep_Details" xml:space="preserve">
+    <value>Dettagli Reparto</value>
+  </data>
+  <data name="Rep_IdInd" xml:space="preserve">
+    <value>Id Stabilimento</value>
+  </data>
+  <data name="Rep_Modify" xml:space="preserve">
+    <value>Modifica Reparto</value>
+  </data>
+  <data name="Rep_Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Salt" xml:space="preserve">
+    <value>Salt</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="Save_Validation" xml:space="preserve">
+    <value>Salva e Valida</value>
+  </data>
+  <data name="Sede" xml:space="preserve">
+    <value>Sede</value>
+  </data>
+  <data name="Sede_Create" xml:space="preserve">
+    <value>Crea Sede</value>
+  </data>
+  <data name="Sede_Delete" xml:space="preserve">
+    <value>Elimina Sede</value>
+  </data>
+  <data name="Sede_Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="Sede_Details" xml:space="preserve">
+    <value>Dettagli Sede</value>
+  </data>
+  <data name="Sede_Modify" xml:space="preserve">
+    <value>Modifica Sede</value>
+  </data>
+  <data name="Sede_N" xml:space="preserve">
+    <value>Sede N</value>
+  </data>
+  <data name="Sedi" xml:space="preserve">
+    <value>Sedi</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Visualizza</value>
+  </data>
+  <data name="Start_Date" xml:space="preserve">
+    <value>Data Inizio</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Cognome</value>
+  </data>
+  <data name="UDM" xml:space="preserve">
+    <value>UM</value>
+  </data>
+  <data name="UDM_name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="UDM_Start" xml:space="preserve">
+    <value>Unità Di Misura Di Partenza</value>
+  </data>
+  <data name="UDM_symbol" xml:space="preserve">
+    <value>Simbolo</value>
+  </data>
+  <data name="UDM_Target" xml:space="preserve">
+    <value>Unità Di Misura Target</value>
+  </data>
+  <data name="UM" xml:space="preserve">
+    <value>Unità di misura</value>
+  </data>
+  <data name="Upload_doc" xml:space="preserve">
+    <value>Upload Documenti</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Utente</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Utenti</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Tipologia Utente</value>
+  </data>
+  <data name="User_Config" xml:space="preserve">
+    <value>Configurazione Utente</value>
+  </data>
+  <data name="User_Create" xml:space="preserve">
+    <value>Crea Utente</value>
+  </data>
+  <data name="User_Delete" xml:space="preserve">
+    <value>Elimina Configurazione Utente</value>
+  </data>
+  <data name="User_DeleteUser" xml:space="preserve">
+    <value>Elimina Utente</value>
+  </data>
+  <data name="User_Details" xml:space="preserve">
+    <value>Dettagli Utente</value>
+  </data>
+  <data name="User_Id" xml:space="preserve">
+    <value>Id Utente</value>
+  </data>
+  <data name="User_Manager" xml:space="preserve">
+    <value>Gestione Utenti</value>
+  </data>
+  <data name="User_Modify" xml:space="preserve">
+    <value>Modifica la Configurazione Utente</value>
+  </data>
+  <data name="User_ModifyUser" xml:space="preserve">
+    <value>Modifica Utente</value>
+  </data>
+  <data name="User_New" xml:space="preserve">
+    <value>Nuovo Utente</value>
+  </data>
+  <data name="User_Roles" xml:space="preserve">
+    <value>Permessi Utenti</value>
+  </data>
+  <data name="User_Type" xml:space="preserve">
+    <value>Tipologia Utente</value>
+  </data>
+  <data name="Validata" xml:space="preserve">
+    <value>Data Validazione</value>
+  </data>
+  <data name="Validate" xml:space="preserve">
+    <value>Valida</value>
+  </data>
+  <data name="Validated" xml:space="preserve">
+    <value>Validato</value>
+  </data>
+  <data name="Validate_Message" xml:space="preserve">
+    <value>Vuoi validare i dati?</value>
+  </data>
+  <data name="Validator" xml:space="preserve">
+    <value>Validatore</value>
+  </data>
+  <data name="Validstate" xml:space="preserve">
+    <value>Stato Validazione</value>
+  </data>
+  <data name="Country_Iso_Code" xml:space="preserve">
+    <value>Codice ISO nazione</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="Nazione" xml:space="preserve">
+    <value>Nazione</value>
+  </data>
+  <data name="Pwd_New" xml:space="preserve">
+    <value>Nuova password</value>
+  </data>
+  <data name="Pwd_Old" xml:space="preserve">
+    <value>Vecchia password</value>
+  </data>
+  <data name="Pwd_Repeat" xml:space="preserve">
+    <value>Ripeti password</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Amministratore</value>
+  </data>
+  <data name="Email_Confirm" xml:space="preserve">
+    <value>Conferma email</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Ruolo</value>
+  </data>
+  <data name="Gerarchie" xml:space="preserve">
+    <value>Gerarchie</value>
+  </data>
+  <data name="Gerarchie_Configurazione" xml:space="preserve">
+    <value>Configurazione gerarchie</value>
+  </data>
+  <data name="Pwd_Forgotten" xml:space="preserve">
+    <value>Password dimenticata?</value>
+  </data>
+  <data name="Gri_Id" xml:space="preserve">
+    <value>Id GRI</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="Tutti" xml:space="preserve">
+    <value>Tutti</value>
+  </data>
+  <data name="Funzionalita" xml:space="preserve">
+    <value>Funzionalita</value>
+  </data>
+  <data name="NoArea" xml:space="preserve">
+    <value>Sei stato mandato qua perchè prima devi creare almeno un'area</value>
+  </data>
+  <data name="NoMicroArea" xml:space="preserve">
+    <value>Sei stato mandato qua perchè prima devi creare almeno una microarea</value>
+  </data>
+  <data name="InvalidTenant" xml:space="preserve">
+    <value>Inserisci un indirizzo di un tenant valido per poter inserire le tue credenziali</value>
+  </data>
+  <data name="BackToLogin" xml:space="preserve">
+    <value>Back to login</value>
+  </data>
+  <data name="ConfirmResetPassword" xml:space="preserve">
+    <value>Conferma Reimposta Password</value>
+  </data>
+  <data name="ConfirmResetPasswordInfo" xml:space="preserve">
+    <value>La tua password è stata resettata.</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Password Dimenticata</value>
+  </data>
+  <data name="ForgotPasswordConfirmationInfo" xml:space="preserve">
+    <value>Il link è stato inviato, controlla la tua email per reimpostare la password.</value>
+  </data>
+  <data name="ForgotPasswordConfirmation" xml:space="preserve">
+    <value>Password Dimenticata</value>
+  </data>
+  <data name="Download_CSV" xml:space="preserve">
+    <value>Scarica file CSV</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Esporta</value>
+  </data>
+  <data name="Export_Multiplo" xml:space="preserve">
+    <value>Export multiplo</value>
+  </data>
+  <data name="UploadDocument" xml:space="preserve">
+    <value>Carica Documenti</value>
+  </data>
+  <data name="Repository" xml:space="preserve">
+    <value>Documenti</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titolo</value>
+  </data>
+  <data name="Repository_Delete" xml:space="preserve">
+    <value>Elimina Documento</value>
+  </data>
+  <data name="Campi_Dinamici" xml:space="preserve">
+    <value>Campi dinamici</value>
+  </data>
+  <data name="Campi_Fissi" xml:space="preserve">
+    <value>Campi fissi</value>
+  </data>
+  <data name="Inserimenti_New" xml:space="preserve">
+    <value>Aggiungi dato</value>
+  </data>
+  <data name="Benvenuto" xml:space="preserve">
+    <value>Benvenuto</value>
+  </data>
+  <data name="Repository_AddRepository" xml:space="preserve">
+    <value>Aggiungi Documento</value>
+  </data>
+  <data name="Societa" xml:space="preserve">
+    <value>Society</value>
+  </data>
+  <data name="Gestisci_Campi" xml:space="preserve">
+    <value>Gestisci Campi</value>
+  </data>
+  <data name="Generic_Error" xml:space="preserve">
+    <value>Qualcosa è andato storto... Puoi tornare nel menù principale con il tasto qua sotto però! Preghiamo di avvisare un tecnico cercando di spiegare la procedura che ha dato l'errore così da poter risolvere il problema nel migliore dei modi. Grazie!</value>
+  </data>
+  <data name="MA_Data" xml:space="preserve">
+    <value>Dati microarea</value>
+  </data>
+  <data name="User_Area" xml:space="preserve">
+    <value>Aree utente</value>
+  </data>
+  <data name="User_Gruppi" xml:space="preserve">
+    <value>Gruppi utente</value>
+  </data>
+  <data name="User_Reparti" xml:space="preserve">
+    <value>Reparti utente</value>
+  </data>
+  <data name="User_Societa" xml:space="preserve">
+    <value>Società utente</value>
+  </data>
+  <data name="NoGruppo" xml:space="preserve">
+    <value>Sei stato reindirizzato qua perchè prima di procedere devi creare almeno un gruppo</value>
+  </data>
+  <data name="NoReapartoContactAdmin" xml:space="preserve">
+    <value>Sei stato reindirizzato qua perchè non fai ancora parte di un reparto, chiedo al tuo amministratore di aggiungerti</value>
+  </data>
+  <data name="NoReparto" xml:space="preserve">
+    <value>Sei stato reindirizzato qua perchè prima di procedere devi creare almeno un reparto</value>
+  </data>
+  <data name="NoRepartoContactAdmin" xml:space="preserve">
+    <value>Sei stato reindirizzato qua perchè non esistono ancora reparti, chiedi al tuo amministratore di creare la prima e nel caso associarti a esso</value>
+  </data>
+  <data name="NoSede" xml:space="preserve">
+    <value>Sei stato reindirizzato qua perchè prima di procedere devi creare almeno una sede</value>
+  </data>
+  <data name="NoSocieta" xml:space="preserve">
+    <value>Sei stato reindirizzato qua perchè prima di procedere devi creare almeno una società</value>
+  </data>
+  <data name="NoSocietaAtAll" xml:space="preserve">
+    <value>Sei stato reindirizzato qua perchè non esistono ancora società, chiedi al tuo amministratore di creare la prima e nel caso associarti a essa</value>
+  </data>
+  <data name="NoSocietaContactAdmin" xml:space="preserve">
+    <value>Sei stato reindirizzato qua perchè non fai ancora parte di una società, chiedo al tuo amministratore di aggiungerti</value>
+  </data>
+</root>

@@ -1,0 +1,25 @@
+﻿<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" onclick="open_modal()">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-confirm-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" onclick="close_modal(false)" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-dark">
+
+            </div>
+            <div class="modal-footer text-dark">
+                <button onclick="close_modal(true)" class="btn btn-danger" name="in_confirm_insert" id="confirm-delete-button">Yes</button>
+                <button onclick="close_modal(false)" class="btn btn-default" name="in_confirm_insert" id="cancel-delete-button">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,95 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@using Elyze.Helpers.Headers;
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@model HeaderClass
+
+@inject IConfiguration _configuration;
+@{
+    bool isConfindustria = _configuration.GetValue<bool>("CustomStyle:Confindustria");
+}
+
+<div id="title-header" class="@((!isConfindustria) ? "bg-white" : "") d-flex flex-column align-items-center pt-2">
+    <div class="w-75">
+        @{
+            if (@Model.Breadcrumb.Count() > 0)
+            {
+                <div id="breadcrumbs-section" class="breadcrumb @((!isConfindustria) ? "bg-white" : "") d-flex flex-row @((Model.HeaderAction.Name != "") ? "justify-content-start" : "justify-content-center")">
+                    @{
+                        foreach (var item in @Model.Breadcrumb)
+                        {
+                            if (@item.Link != "")
+                            {
+                                <a id="text-dynamic" href="@item.Link" class="breadcrumb-item">
+                                    @item.Name
+                                </a>
+                            }
+                            else
+                            {
+                                <a id="text-dynamic" class="breadcrumb-item active">
+                                    @item.Name
+                                </a>
+                            }
+                        }
+                    }
+                </div>
+            }
+        }
+        @{
+            if (Model.HeaderAction.Name != "")
+            {
+                <div id="title-section" class="d-flex flex-row justify-content-between mx-3">
+                    <h2 id="text-dynamic" class="text-center text-xxl title-text-style ">@Model.Title</h2>
+                    <div class="d-flex flex-column @((!isConfindustria) ? "" : "text-dark") align-self-center text-right align-content-end title-text-style">
+                        @{
+                            if (@Model.BackRoute != "")
+                            {
+                                <a id="text-dynamic" href="@Model.BackRoute" role="button" class="w-auto text-nowrap">@SharedLocalizer["Back"] X</a>
+                            }
+                            else
+                            {
+                                <a id="text-dynamic" href="https://localhost:5001/" role="button" class="w-auto text-nowrap">@SharedLocalizer["Back"] X</a>
+                            }
+                        }
+                        <button class="btn btn-success btn-lg px-5 py-2 mt-2" onclick="action_btn()">@Model.HeaderAction.Name</button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div id="title-section" class="d-flex flex-row flex-grow-1 mx-3">
+                    <div class="col-3">
+                        <span></span>
+                    </div>
+                    <h2 id="text-dynamic" class="text-center col-6 text-xxl title-text-style">@Model.Title</h2>
+                    <div class="text-dark col-3 align-self-center text-right align-content-end title-text-style">
+                        @{
+                            if (@Model.BackRoute != "")
+                            {
+                                <a id="text-dynamic" href="@Model.BackRoute" role="button" class="w-auto text-nowrap responsive-back-high">@SharedLocalizer["Back"] X</a>
+                                <a id="text-dynamic" href="@Model.BackRoute" role="button" class="w-auto text-nowrap responsive-back-low"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg></a>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<script>
+    function action_btn() {
+        let ajaz = $.ajax({
+            url: `@Model.HeaderAction.Link`,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                window.location.href = `@Model.HeaderAction.Link`;
+            },
+            error: function (xhr, status, error) {
+                alert("Error: " + error);
+            }
+        });
+    }
+</script>

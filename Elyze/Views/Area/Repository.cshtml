@@ -1,0 +1,94 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model IEnumerable<Elyze.Data.Repository>
+@{ 
+    ViewData["Title"] = @SharedLocalizer["Repository"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+
+<div class="area-contents-form">
+    <h1>@SharedLocalizer["Repository"]</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titolo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descrizione)
+                </th>
+                <th>
+                    Area
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Select((value, i) => new { i, value }))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.value.Titolo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.value.Descrizione)
+                    </td>
+                    <td>
+                        @ViewBag.Aree[item.i].Descrizione
+                    </td>
+                    <td>
+                        <a title="@SharedLocalizer["Download"]" asp-action="DownloadFile" asp-route-id="@item.value.Id"><i class="fa-solid fa-download"></i></a>
+                        <a title="@SharedLocalizer["Delete"]" asp-action="DeleteFile" asp-route-id="@item.value.Id" class="delete" ><i class="fa-solid fa-trash-can"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>
+@*         @if(User.IsInRole("Administrator")){
+
+            <a title="@SharedLocalizer["Back"]" asp-action="ControlPanel" asp-controller="Home">@SharedLocalizer["Back"]</a> 
+         }
+           else
+        {
+            <a title="@SharedLocalizer["Back"]" asp-action="Index" asp-controller="Home">@SharedLocalizer["Back"]</a> 
+  
+        }*@
+        <a title="@SharedLocalizer["Back"]" asp-action="Index" asp-controller="Repository">@SharedLocalizer["Back"]</a>
+
+
+        | <a class="btn btn-green" asp-action="UploadFile">@SharedLocalizer["Create"]</a>
+
+        
+      
+    </p>
+</div>
+
+@section Scripts {
+   <script>
+       $('.delete').on('click', function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                        title: '@SharedLocalizer["Confirmation_Delete_Message"]',
+                        showDenyButton: true,
+                        confirmButtonText: '@SharedLocalizer["Delete"]',
+                        denyButtonText: `@SharedLocalizer["Cancel"]`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = $(this).attr('href');
+                        }
+                        else if (result.isDenied) {
+                            return false;
+                        }
+                    });
+            });
+   </script>
+}
+

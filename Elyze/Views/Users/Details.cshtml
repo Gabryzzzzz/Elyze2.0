@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model Elyze.Models.AspNetUsers.UserViewDetailsDeleteFormModel
+@{
+    ViewData["Title"] = @SharedLocalizer["User_Details"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+
+<div class="area-contents-form">
+    <div class="form">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">@SharedLocalizer["Name"]</label>
+            <input disabled asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Surname" class="control-label">@SharedLocalizer["Surname"]</label>
+            <input disabled asp-for="Surname" class="form-control" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label">@SharedLocalizer["Mail"]</label>
+            <input disabled asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NameRole" class="control-label">@SharedLocalizer["Role"]</label>
+            <input disabled asp-for="NameRole" type="text" class="form-control" />
+            <span asp-validation-for="NameRole" class="text-danger"></span>
+        </div>
+        <div class="form-footer">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-5 py-2 mt-2 fixed-btn-width">@SharedLocalizer["Back"]</a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,73 @@
+﻿@using Elyze.Models.CampiMA;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@model CampiMAFormViewModel
+
+@{
+    ViewData["Title"] = "Details MicroArea Campo";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+<div class="area-contents-form">
+    <div id="form-area" class="form">
+        <input type="hidden" name="IdCampoMA" value="@Model.IdCampoMA" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div id="area-first-top-part">
+            <div class="form-group">
+                <label class="control-label">@SharedLocalizer["MA_MicroAreas"]</label>
+                @Html.DropDownListFor(m => m.IdMicroArea, new SelectList(ViewBag.MicroArea, "Id", "Descrizione"), new { @id = "MA_MicroAreas", @class = "form-control", disabled = "disabled" })
+
+                <span asp-validation-for="IdMicroArea" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descrizione" class="control-label">@SharedLocalizer["Area_Description"]</label>
+                <input disabled asp-for="Descrizione" class="form-control" />
+                <span asp-validation-for="Descrizione" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="area-date-part">
+            <div class="form-group">
+                <label class="control-label">@SharedLocalizer["Gen_Type"]</label>
+                @Html.DropDownListFor(m => m.IdTipologia, new SelectList(ViewBag.Tipologie, "Id", "Nome"), new { @id = "Gen_Type", @class = "form-control", disabled = "disabled"  })
+
+                <span asp-validation-for="IdTipologia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">@SharedLocalizer["UDM"]</label>
+                @Html.DropDownListFor(m => m.IdUDM, new SelectList(ViewBag.UDMs, "Id", "Nome"), new { @id = "UDMz", @class = "form-control", disabled = "disabled"  })
+
+                <span asp-validation-for="IdUDM" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div id="area-date-part">
+            <div class="form-group text-nowrap">
+                <label asp-for="DataCreazione" class="control-label">@SharedLocalizer["Area_CreationDate"]</label>
+                <input disabled asp-for="DataCreazione" type="date" class="form-control" name="DataCreazione" />
+                <span asp-validation-for="DataCreazione" class="text-danger"></span>
+            </div>
+            <div class="form-group text-nowrap">
+                <label asp-for="DataSpegnimento" class="control-label">@SharedLocalizer["Area_ValidityDate"]</label>
+                <input disabled asp-for="DataSpegnimento" type="date" id="DataSpegnimento" name="DataSpegnimento" class="form-control" />
+                <span asp-validation-for="DataSpegnimento" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-footer">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-5 py-2 mt-2 fixed-btn-width">@SharedLocalizer["Back"]</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

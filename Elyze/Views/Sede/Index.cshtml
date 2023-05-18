@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    ViewData["Title"] = @SharedLocalizer["Sedi"];
+    Layout = "~/Views/Shared/_Page.cshtml"; 
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+@if (ViewData["Redirect"] != null)
+{
+    @await Html.PartialAsync("~/Views/Shared/Modals/_infoModal.cshtml")
+}
+
+<div class="area-contents-form">
+    <table id="table_sedi" class="table responsive nowrap w-100">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    @SharedLocalizer["Description"]
+                </th>
+                <th>
+                    @SharedLocalizer["Sede_N"]
+                </th>
+                <th>
+                    @SharedLocalizer["Country_Iso_Code"]
+                </th>
+                <th>
+                    @SharedLocalizer["Nazione"]
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+    </table>
+ </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $('#table_sedi').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": `@ViewData["BasePath"]` + "/Sede/GetSedeDataTable",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                }, {
+                    "targets": [1],
+                    "responsivePriority": 2
+                }, {
+                    "targets": [2]
+                }, {
+                    "targets": [3]
+                }, {
+                    "targets": [4]
+                }, {
+                    "targets": [-1],
+                    "orderable": false,
+                    "searchable": false,
+                    "class": "dt-right",
+                    "responsivePriority": 1
+                }],
+                "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true, "class": "dt-center" },
+                    { "data": "descrizione", "name": `@SharedLocalizer["Description"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "sedeN", "name": `@SharedLocalizer["Sede_N"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "isoNazione", "name": `@SharedLocalizer["Country_Iso_Code"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "nazione", "name": `@SharedLocalizer["Nazione"]`, "autoWidth": true, "class": "dt-center" },
+                    //{ "data": null, "name": `Actions`, "autoWidth": true },
+                    {
+                        "data": "id",
+                        "render": function (data, row) {
+                            return `
+                            <a title = "@SharedLocalizer["Edit"]" onclick="redirect_to(${data}, 'Edit', 'Sede', '@ViewData["BasePath"]')">
+                                <i class="fa-solid fa-pencil" ></i>
+                            </a>
+                            <a title="@SharedLocalizer["Details"]" onclick="redirect_to(${data}, 'Details', 'Sede', '@ViewData["BasePath"]')">
+                                <i class="fa-solid fa-circle-info" ></i>
+                            </a >
+                            <a title="@SharedLocalizer["Delete"]" onclick="redirect_to(${data}, 'Delete', 'Sede', '@ViewData["BasePath"]')">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>`;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}

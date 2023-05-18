@@ -1,0 +1,75 @@
+﻿@using Elyze.Models.MicroArea;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using Elyze.Helpers;
+@inject IClaimGetterService ClaimGetterService
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@model IEnumerable<MicroAreaMainViewModel>
+@{
+    ViewData["Title"] = "Main MicroArea";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+
+<div class="d-flex flex-column align-items-center home-page">
+    @await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+    <div class="full-screen-blue home-layout">
+        <div class="full-screen-blue menu-grid">
+
+            @{
+                foreach (MicroAreaMainViewModel item in Model)
+                {
+                    <a asp-controller="Gen" asp-action="IndexInserimenti" asp-route-id="@item.IdMicroArea" class="p-3 menu-grid-background-unset">
+                        <img src="/img/IconeArea/@ViewData["AreaImage"]" />
+                        <div class="title-text-style text-white">@item.Nome</div>
+                    </a>
+                }
+            }
+        </div>
+        <div class="divider">@SharedLocalizer["Funzionalita"]</div>
+        <div class="full-screen-blue menu-grid">
+            @if (ViewBag.Features.Repository)
+            {
+                <a asp-controller="Repository" asp-action="Create" class="functionalities">
+                    <img src="/img/elyze-upload-documenti.png" alt="Upload Document" />
+                    <div class="title-text-style text-white"> @SharedLocalizer["UploadDocument"]</div>
+                </a>
+            }
+            else
+            {
+                <a class="p-3  d-flex functionalities">
+                    <img src="/img/elyze-upload-documenti.png" alt="Upload Document" />
+                    <div style="opacity: 0.5;" class="title-text-style text-white"> @SharedLocalizer["UploadDocument"]</div>
+                </a>
+            }
+
+            @{
+                if (await ClaimGetterService.IsAdmin())
+                {
+                    <a asp-controller="Area" asp-action="Create" class="functionalities">
+                        <img src="/img/IconeSVG/Icon-Aggiungi-Area.svg" />
+                        <div class="title-text-style text-white">@SharedLocalizer["Add_Area"]</div>
+                    </a>
+                    <a asp-controller="MicroArea" asp-action="Create" asp-route-id="@ViewData["IdArea"]" class="functionalities">
+                        <img src="/img/IconeSVG/Icon-Aggiungi-MicroArea.svg" />
+                        <div class="title-text-style text-white">@SharedLocalizer["MA_Add"]</div>
+                    </a>
+                    <a asp-controller="CampiMicroArea" asp-action="Index" class="functionalities">
+                        <img src="/img/IconeSVG/Icon-Gestisci-Campi.svg" />
+                        <div class="title-text-style text-white">@SharedLocalizer["Gestisci_Campi"]</div>
+                    </a>
+                    <a asp-controller="CampiMicroArea" asp-action="create" class="functionalities">
+                        <img src="/img/IconeSVG/Icon-Aggiungi-Campo.svg" />
+                        <div class="title-text-style text-white">@SharedLocalizer["Add"] @SharedLocalizer["MA_Fields"]</div>
+                    </a>
+                }
+            }
+            
+        </div>
+    </div>
+
+</div>
+
+<img class="vanish logo-confindustria" src="~/img/loghi/Logo-Confindustria.svg" />

@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    ViewData["Title"] = "Crea Gruppo";
+    Layout = "~/Views/Shared/_Page.cshtml";
+}
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+@await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+
+@if (ViewData["Redirect"] != null)
+{
+    @await Html.PartialAsync("~/Views/Shared/Modals/_infoModal.cshtml")
+}
+
+<div class="area-contents-form">
+
+    <table id="table_gruppi" class="table responsive nowrap w-100">
+        <thead>
+            <tr>
+                <th>
+                    @SharedLocalizer["Group_Id"]
+                </th>
+                <th>
+                    @SharedLocalizer["Group_Name"]
+                </th>
+                <th>
+                    @SharedLocalizer["Group_Description"]
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $('#table_gruppi').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "ajax": {
+                    "url": `@ViewData["BasePath"]` + "/Gruppo/GetGruppoDataTable",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false,
+                }, {
+                    "targets": [1],
+                    "responsivePriority": 2
+                }, {
+                    "targets": [2]
+                }, {
+                    "targets": [-1],
+                    "orderable": false,
+                    "searchable": false,
+                    "class": "dt-right",
+                    "responsivePriority": 1
+                }],
+                "columns": [
+                    { "data": "id", "name": "id", "autoWidth": true, "class": "dt-center" },
+                    { "data": "nome", "name": `@SharedLocalizer["Group_Name"]`, "autoWidth": true, "class": "dt-center" },
+                    { "data": "descrizione", "name": `@SharedLocalizer["Group_Description"]`, "autoWidth": true, "class": "dt-center" },
+                    //{ "data": null, "name": `Actions`, "autoWidth": true },
+                    {
+                        "data": "id",
+                        "render": function (data, row) {
+                            return `
+                                    <a title = "@SharedLocalizer["Edit"]" onclick="redirect_to(${data}, 'Edit', 'Gruppo', '@ViewData["BasePath"]')">
+                                        <i class="fa-solid fa-pencil" ></i>
+                                    </a>
+                                    <a title="@SharedLocalizer["Details"]" onclick="redirect_to(${data}, 'Details', 'Gruppo', '@ViewData["BasePath"]')">
+                                        <i class="fa-solid fa-circle-info" ></i>
+                                    </a >
+                                            <a title="@SharedLocalizer["Delete"]" onclick="redirect_to(${data}, 'Delete', 'Gruppo', '@ViewData["BasePath"]')">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>`;
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}
+
+
+
+

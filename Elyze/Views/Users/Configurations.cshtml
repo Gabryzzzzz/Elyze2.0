@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+
+@{
+    ViewData["Title"] = @SharedLocalizer["User_Config"];
+}
+
+
+
+@await Html.PartialAsync("~/Views/Shared/header/_pages.cshtml")
+
+<div class="d-flex flex-column align-items-center home-page">
+    @await Html.PartialAsync("~/Views/Shared/Title/_TitlePage.cshtml", @ViewData["Header"])
+    <div class="full-screen-blue home-layout">
+        <div class="full-screen-blue menu-grid" id="user-config-menu">
+            <a asp-controller="UserGruppo" asp-action="SetAuthorizations" asp-route-id="@ViewData["UserId"]" class="functionalities">
+                <img src="/img/IconeSVG/Icon-Gruppo.svg" alt="Upload Document" ì />
+                <div class="title-text-style text-white">@SharedLocalizer["Groups"]</div>
+            </a>
+            <a asp-controller="UserSocieta" asp-action="SetAuthorizations" asp-route-id="@ViewData["UserId"]" class="functionalities">
+                <img src="/img/IconeSVG/Icon-Societa.svg" alt="Upload Document" />
+                <div class="title-text-style text-white">@SharedLocalizer["Company"]</div>
+            </a>
+            @*    <a asp-controller="UserSede" asp-action="SetAuthorizations" asp-route-id="@ViewData["UserId"]">
+            <div class="title-text-style text-white">Sede</div>
+            </a>*@
+            <a asp-controller="UserReparto" asp-action="SetAuthorizations" asp-route-id="@ViewData["UserId"]" class="functionalities">
+                <img src="/img/IconeSVG/Icon-Reparto.svg" />
+                <div class="title-text-style text-white">@SharedLocalizer["Reps"]</div>
+            </a>
+            <a asp-controller="UserArea" asp-action="SetAuthorizations" asp-route-id="@ViewData["UserId"]" class="functionalities">
+                <img src="/img/IconeSVG/Icon-Gestisci-Area.svg" />
+                <div class="title-text-style text-white">@SharedLocalizer["Area"]</div>
+            </a>
+            <a asp-action="Index" class="functionalities">
+                <img src="/img/IconeSVG/Icon-Utenti.svg" />
+                <div class="title-text-style text-white">@SharedLocalizer["Users"]</div>
+            </a>
+        </div>
+        <div class="divider d-none">@SharedLocalizer["Funzionalita"]</div>
+        <div class="full-screen-blue menu-grid d-none">
+        </div>
+    </div>
+
+</div>
+
+<img class="vanish logo-confindustria" src="~/img/loghi/Logo-Confindustria.svg" />
+

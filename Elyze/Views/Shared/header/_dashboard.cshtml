@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Security.Claims
+@using System.IO;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    var sPath = "/img/loghi";
+    if (HttpContextAccessor.HttpContext != null && HttpContextAccessor.HttpContext.Request.Cookies.Keys.Contains("LoginPage"))
+    {
+        sPath += "/" + HttpContextAccessor.HttpContext.Request.Cookies["LoginPage"];
+    }
+}
+
+<header class="pages right">
+    <div class="lang-box">
+        <a href="/Home/ChangeLanguage/it">IT</a><a href="/Home/ChangeLanguage/en-US">EN</a>
+    </div>
+    <img class="logo-setting-img" src="@(sPath + "/logo.png")" alt="logo" />
+    
+    @{
+        if(User.Claims.Count() > 0) { 
+            var sUserInitials = User.FindFirst("Initials");
+
+            <div class="userbox">
+                <div class="usr-circle">
+                    
+                        @if (sUserInitials != null && !string.IsNullOrEmpty(sUserInitials.Value))
+                        {
+                            <span>@sUserInitials.Value</span>
+                        }
+                    
+                        </div>
+                        <div class="usermenu">
+                            <ul>
+                         @if(User.IsInRole("Administrator")){
+                                <li><a class="menu__item" asp-area="" asp-controller="Home" asp-action="Index">@SharedLocalizer["Dashboard"]</a></li>
+                                <li><a class="menu__item" asp-area="" asp-controller="Home" asp-action="ControlPanel">@SharedLocalizer["Control_Panel"]</a></li>
+                                <li><a class="menu__item" asp-area="" asp-controller="CampiMA" asp-action="Index">@SharedLocalizer["Config_campi"]</a></li>
+                                <li><a class="menu__item" asp-area="" asp-controller="UserConfigs" asp-action="Settings">@SharedLocalizer["Settings"]</a></li>
+                  
+                            }
+
+                            <li><a class="menu__item" asp-area="" asp-controller="Users" asp-action="ChangeUsrData">@SharedLocalizer["Change_Pwd"]</a></li>
+                            <li><a class="menu__item" asp-area="" asp-controller="Home" asp-action="Logout">@SharedLocalizer["Logout"]</a></li>
+                  
+                            </ul>
+                        </div>
+                    </div>
+        }
+    }
+</header>
