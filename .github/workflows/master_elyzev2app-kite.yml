@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'ElyzeV2App-kite'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D9E26FD03CD54648A7C29FEF5BD43422 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8F40AB865C7B4BECBCF56F0BF757012A }}
           package: .
